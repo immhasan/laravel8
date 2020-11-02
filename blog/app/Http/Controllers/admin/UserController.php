@@ -8,6 +8,7 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 use phpDocumentor\Reflection\Types\True_;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -25,7 +26,12 @@ class UserController extends Controller
                 })->addColumn('user', function ($data) {
                     return '<h6 class="mb-0">' . $data->first_name . ' ' . $data->last_name . '</h6><span>' . $data->email . '</span>';
                 })->addColumn('role', function ($data) {
-                    return $data->role_id;
+                    if ($data->role_id == 1) {
+                        return '<span class="badge badge-primary">Admin</span>';
+                    } else {
+                        return '<span class="badge badge-warning">Vendor</span>';
+                    }
+
                 })->addColumn('phone', function ($data) {
                     return $data->phone;
                 })->addColumn('status', function ($data) {
@@ -53,35 +59,56 @@ class UserController extends Controller
 
     function add(Request $request)
     {
+
         if (request()->ajax()) {
 
             $validator = Validator::make(request()->all(), [
                 "first_name" => 'required',
                 "last_name" => 'required',
                 "gender" => "required",
-                "email" => "unique:users,email",
-                "phone" => "integer|size:16",
+                "email" => "required|unique:users,email",
+                "phone" => "required|integer|min:6| min:16",
                 "password" => "required",
-                "confrim_password" => "required",
-                "address" => "required|size:255",
-                "profile_picture" => "required",
-            ]);
+                "confirm_password" => "required",
+                "designation" => "required",
+                "address" => "required|max:255",
+                "role_id" => "required",
+            ],
+            [
+                'first_name.required' => 'Please enter first name',
+                'last_name.required' => 'Please enter last name',
+                'gender.required' => 'Please select gender',
+                'email.required' => 'Please enter email',
+                'email.unique' => 'Email must be unique',
+                'phone.required' => 'Please enter phone',
+                'phone.numeric' => 'Phone must be numeric',
+                'phone.min' => 'Invalid phone length',
+                'phone.max' => 'Invalid phone length',
+                'password.required' => 'Please enter password',
+                'confirm_password.required' => 'Please confirm password',
+                'designation.required' => 'Please enter designation',
+                'address.required' => 'Please enter address',
+                'address.max' => 'Invalid Address length',
+                'role_id' => 'Please select role'
+
+
+            ]
+            );
             if ($validator->fails()) {
                 return response()->json($validator->getMessageBag()->toArray());
             } else {
-                $password = Str::random(rand(8, 20));
-                $user = new User();
-                $user->first_name = request()->get('first_name') ?? "";
-                $user->last_name = request()->get('last_name') ?? "";
-                $user->gender = request()->get("gender") ?? "";
-                $user->email = request()->get('email') ?? "";
-                $user->phone = request()->get('phone') ?? "";
-                $user->password = request()->get('password') ?? "";
-                $user->confr = request()->get('confrim_password') ?? "";
-                $user->sponsor_name = request()->get("address") ?? "";
-                $user->city = request()->get("profile_picture") ?? "";
-                $user->password = Hash::make($password);
-                $user->save();
+
+            /*    $user->password = Hash::make(request()->get('password') ?? "");*/
+
+
+                if (request()->get('_token')) {
+                    $request->request->remove('_token');
+                    $request->request->remove('current_password');
+                    $request->request->remove('confrim_new_password');
+                    $request->request->remove('new_password');
+                }
+
+                User::create($request()->all());
 
                 return 'Added Successfully';
             }

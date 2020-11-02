@@ -288,14 +288,15 @@
                                                     <div class="col-lg-6 col-md-12">
                                                         <div class="form-group">
                                                             <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name">
+
+                                                            <span class="text-danger" id="first_nameDiv"> </span>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-md-12">
                                                         <div class="form-group">
                                                             <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name">
-                                                        </div>
+                                                            <span class="text-danger" id="last_nameDiv"></span>      </div>
                                                     </div>
-
 
                                                     <div class="col-lg-6 col-md-12">
                                                         <div class="form-group">
@@ -304,54 +305,74 @@
                                                                 <option value="AF">Male</option>
                                                                 <option value="AX">Female</option>
                                                             </select>
+                                                            <span class="text-danger" id="genderDiv">  </span>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-lg-6 col-md-12">
                                                         <div class="form-group">
                                                             <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+
+                                                            <span class="text-danger" id="emailDiv"> </span>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-lg-6 col-md-12">
                                                         <div class="form-group">
                                                             <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone">
+
+                                                            <span class="text-danger" id="phoneDiv" > </span>
                                                         </div>
                                                     </div>
 
 
                                                     <div class="col-lg-6 col-md-12">
                                                         <div class="form-group">
-                                                            <input  class="form-control" id="designation" name="phone" placeholder="Designation">
+                                                            <input  class="form-control" id="designation" name="designation" placeholder="Designation">
+
+                                                            <span class="text-danger" id="designationDiv"> </span>
                                                         </div>
                                                     </div>
                                                     <div id="pdiv" class="col-lg-6 col-md-12">
                                                         <div class="form-group">
-                                                            <input type="password" class="form-control" id="password" name="phone"  placeholder="Password">
+                                                            <input type="password" class="form-control" id="password" name="password"  placeholder="Password">
+                                                            <span class="text-danger" id="passwordDiv">  </span>
+
                                                         </div>
                                                     </div>
                                                     <div id="cpdiv" class="col-lg-6 col-md-12">
                                                         <div class="form-group">
                                                             <input type="password" class="form-control" id="confirm_password" name="confirm_password"  placeholder="Confirm Password">
+                                                            <span class="text-danger" id="confrim_passwordDiv">  </span>
+
                                                         </div>
                                                     </div>
 
 
                                                     <div class="col-lg-6 col-md-12">
                                                         <div class="form-group">
-                                                            <select id="role" name="role" class="form-control">
+                                                            <select id="role_id" name="role_id" class="form-control">
                                                                 <option value="">Role</option>
                                                                 <option value="AF">Admin</option>
                                                                 <option value="AX">Vendor</option>
+
                                                             </select>
+                                                            <span class="text-danger" id="role_idDiv">  </span>
+
                                                         </div>
+
+                                                        <span class="text-danger"  >  </span>
                                                     </div>
 
                                                     <div class="col-lg-12 col-md-12">
                                                         <div class="form-group">
                                                             <textarea rows="4" type="text"  id="address" name="address" class="form-control" placeholder="Address"></textarea>
+                                                            <span class="text-danger" id="addressDiv" ></span>
+
                                                         </div>
+
                                                     </div>
+
                                                 </div>
                                                 <div id="addDisplayBtn">
                                                 <button type="button"  class="btn btn-round btn-primary addBtn">Add</button> &nbsp;&nbsp;
@@ -375,11 +396,14 @@
                                                         <div class="form-group">
                                                             <input type="password" id="current_password" name="current_password" class="form-control" placeholder="Current Password">
                                                         </div>
+                                                        <span class="text-danger" id="current_passwordDiv"> </span>
                                                         <div class="form-group">
                                                             <input type="password" id="new_password" name="new_password" class="form-control" placeholder="New Password">
+                                                            <span class="text-danger" id="new_passwordDiv"> </span>
                                                         </div>
                                                         <div class="form-group">
                                                             <input type="password" id="confrim_new_password" name="confrim_new_password" class="form-control" placeholder="Confirm New Password">
+                                                            <span class="text-danger" id="confrim_new_passwordDiv"> </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -518,6 +542,21 @@
 
             $('.addBtn').click(function(){
 
+
+                $('#first_nameDiv').html('');
+                $('#last_nameDiv').html('');
+                $('#genderDiv').html('');
+                $('#emailDiv').html('');
+                $('#phoneDiv').html('');
+                $('#designationDiv').html('');
+                $('#passwordDiv').html('');
+                $('#confrim_passwordDiv').html('');
+                $('#role_idDiv').html('');
+                $('#addressDiv').html('');
+                $('#current_passwordDiv').html('');
+                $('#new_passwordDiv').html('');
+                $('#confrim_new_passwordDiv').html('');
+
                 let myForm = document.getElementById('addForm');
                 let formData = new FormData(myForm);
                 $.ajax({
@@ -527,8 +566,22 @@
                     contentType:false,
                     processData:false,
                     success: function(data){
-                        console.log(111);
-                        }
+                        $('#first_nameDiv').html(data.first_name);
+                        $('#last_nameDiv').html(data.last_name);
+                        $('#genderDiv').html(data.gender);
+                        $('#emailDiv').html(data.email);
+                        $('#phoneDiv').html(data.phone);
+                        $('#designationDiv').html(data.designation);
+                        $('#passwordDiv').html(data.password);
+                        $('#confrim_passwordDiv').html(data.confrim_password);
+                        $('#role_idDiv').html(data.role_id);
+                        $('#addressDiv').html(data.address);
+                        $('#current_passwordDiv').html(data.current_password);
+                        $('#new_passwordDiv').html(data.new_password);
+                        $('#confrim_new_passwordDiv').html(data.confrim_new_password);
+
+
+                    }
                 })
             });
 
