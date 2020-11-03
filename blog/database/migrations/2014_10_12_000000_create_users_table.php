@@ -21,12 +21,12 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('address');
             $table->string('phone');
-            $table->string('image');
+            $table->string('profile_image')->default('uploads/users/placeholder.jpg')->nullable();
             $table->string('gender');
             $table->string('designation');
             $table->integer('role_id');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('status');
+            $table->string('status')->default('enable');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->rememberToken();

@@ -5,8 +5,14 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/layout/webapp.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layout/webapp.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/images/xs/avatar8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/setting/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/setting/list.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/user/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/user/list.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -192,7 +198,9 @@
       <option name="presentableId" value="Default" />
       <updated>1603321951813</updated>
       <workItem from="1603321954736" duration="131527000" />
-      <workItem from="1604284336229" duration="22839000" />
+      <workItem from="1604284336229" duration="24422000" />
+      <workItem from="1604372333591" duration="4040000" />
+      <workItem from="1604376933998" duration="19981000" />
     </task>
     <servers />
   </component>
@@ -224,6 +232,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="508" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1603746651009" />
+    <state x="547" y="104" width="663" height="801" key="find.popup" timestamp="1604375540311">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="547" y="104" width="663" height="801" key="find.popup/0.0.1680.1010@0.0.1680.1010" timestamp="1604375540311" />
     <state x="417" y="228" key="run.anything.popup" timestamp="1604291109385">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
@@ -250,7 +262,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/admin/user/list.blade.php</url>
-          <line>25</line>
+          <line>36</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -260,13 +272,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/admin/user/list.blade.php</url>
-          <line>24</line>
+          <line>35</line>
           <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/admin/user/list.blade.php</url>
-          <line>384</line>
-          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

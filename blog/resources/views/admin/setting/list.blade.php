@@ -1,6 +1,9 @@
 @extends('admin.layout.webapp')
 
-@section('content')   <div id="main-content">
+
+@section('content')
+
+    <div id="main-content">
     <div class="container-fluid">
         <div class="block-header">
             <div class="row clearfix">

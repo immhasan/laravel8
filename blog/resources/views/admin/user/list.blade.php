@@ -1,7 +1,18 @@
 @extends('admin.layout.webapp')
 
+
+@section('pageCss')
+
+
+    <link rel="stylesheet" href="{{asset('assets/vendor/sweetalert/sweetalert.css')}}">
+@endsection
+
+
+
+
 @section('content')
 <div id="main-content">
+    <div class="container-fluid">
     <div class="container-fluid">
         <div class="block-header">
             <div class="row clearfix">
@@ -257,11 +268,13 @@
                                             <div class="body">
                                                 <div class="card c_grid c_blue">
                                                     <div class="body text-center p-3">
+                                                        <label for="profile_img">
                                                         <div class="circle">
                                                             <img class="rounded-circle" src="../assets/images/sm/avatar1.jpg" alt="">
                                                         </div>
+                                                        </label>
                                                         <h6 class="mt-3 mb-0">Upload Image</h6>
-                                                        <input type="hidden" name="profile_picture"  accept=".jpg,.png">
+                                                        <input type="file" hidden id="profile_img" name="profile_img"  accept=".jpg,.png">
                                                     </div>
                                                 </div>
                                             </div>
@@ -302,8 +315,8 @@
                                                         <div class="form-group">
                                                             <select id="gender" name="gender" class="form-control">
                                                                 <option value="">Gender</option>
-                                                                <option value="AF">Male</option>
-                                                                <option value="AX">Female</option>
+                                                                <option value="male">Male</option>
+                                                                <option value="female">Female</option>
                                                             </select>
                                                             <span class="text-danger" id="genderDiv">  </span>
                                                         </div>
@@ -353,8 +366,8 @@
                                                         <div class="form-group">
                                                             <select id="role_id" name="role_id" class="form-control">
                                                                 <option value="">Role</option>
-                                                                <option value="AF">Admin</option>
-                                                                <option value="AX">Vendor</option>
+                                                                <option value="1">Admin</option>
+                                                                <option value="2">Vendor</option>
 
                                                             </select>
                                                             <span class="text-danger" id="role_idDiv">  </span>
@@ -377,8 +390,10 @@
                                                 <div id="addDisplayBtn">
                                                 <button type="button"  class="btn btn-round btn-primary addBtn">Add</button> &nbsp;&nbsp;
                                                 <button type="button" class="btn btn-round btn-default cancBtn">Cancel</button>
+
                                                 </div>
                                             </div>
+
                                         </div>
 
 
@@ -526,7 +541,9 @@
                     url:"edit-user/"+id,
                     dataType:"json",
                     success: function(html){
-                        console.log((html));
+
+
+
                     }
                 })
             }
@@ -563,6 +580,7 @@
                     url:"add-user/",
                     method:"post",
                     data:formData,
+                    dataType:"json",
                     contentType:false,
                     processData:false,
                     success: function(data){
@@ -580,12 +598,41 @@
                         $('#new_passwordDiv').html(data.new_password);
                         $('#confrim_new_passwordDiv').html(data.confrim_new_password);
 
+                        if(data.status == true){
+                            swal("Good job!", "Added Successfully!", "success");
+                        }else{
+
+                            swal("Error", "Something went wrong", "error");
+                        }
 
                     }
                 })
             });
 
 
+
+
+
+
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+
+                        $('.circle').html("<img class='rounded-circle' src="+e.target.result+" alt=''>");
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+
+            $("#profile_img").change(function() {
+                readURL(this);
+            });
+
+
         </script>
+
 
 @endsection

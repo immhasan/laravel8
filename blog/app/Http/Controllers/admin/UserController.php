@@ -9,7 +9,6 @@ use phpDocumentor\Reflection\Types\True_;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-
 class UserController extends Controller
 {
 
@@ -22,7 +21,7 @@ class UserController extends Controller
 
             return datatables()->of(User::latest()->get())
                 ->addColumn('image', function ($data) {
-                    return '<img src="../assets/images/xs/avatar5.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">';
+                    return '<img src="'.asset($data->profile_image).'" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">';
                 })->addColumn('user', function ($data) {
                     return '<h6 class="mb-0">' . $data->first_name . ' ' . $data->last_name . '</h6><span>' . $data->email . '</span>';
                 })->addColumn('role', function ($data) {
@@ -67,7 +66,7 @@ class UserController extends Controller
                 "last_name" => 'required',
                 "gender" => "required",
                 "email" => "required|unique:users,email",
-                "phone" => "required|integer|min:6| min:16",
+                "phone" => "required|numeric|min:6| min:16",
                 "password" => "required",
                 "confirm_password" => "required",
                 "designation" => "required",
@@ -98,19 +97,41 @@ class UserController extends Controller
                 return response()->json($validator->getMessageBag()->toArray());
             } else {
 
-            /*    $user->password = Hash::make(request()->get('password') ?? "");*/
-
-
                 if (request()->get('_token')) {
                     $request->request->remove('_token');
+                    $request->request->remove('confirm_password');
                     $request->request->remove('current_password');
                     $request->request->remove('confrim_new_password');
                     $request->request->remove('new_password');
+
+                 /*   $request->request->remove('profile_image');*/
+
+
                 }
 
-                User::create($request()->all());
 
-                return 'Added Successfully';
+                if (!empty($request->file('profile_img'))) {
+
+                    $profile_picture = $request->file('profile_img');
+                    $image = rand().'.'.$profile_picture->getClientOriginalExtension();
+                    $profile_picture->move(public_path('uploads/users/'),$image);
+                    $profile_picture = 'uploads/users/'.$image;
+                    $request->request->add(['profile_image' => $profile_picture]);
+
+                }
+
+
+
+                 $resp = User::insert($request->except('profile_img') );
+
+
+                if($resp){
+                    return json_encode(['status'=>true]);
+                }else{
+                    return json_encode(['status'=>false]);
+
+                }
+
             }
         }
     }
